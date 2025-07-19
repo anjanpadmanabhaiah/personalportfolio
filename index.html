@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anjan Padmanabhaiah - DevOps Engineer Portfolio</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts - Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom animations for hero section */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes pulseSlow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .animate-fade-in-down { animation: fadeInDown 0.8s ease-out forwards; }
+        .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; }
+        .animate-fade-in-right { animation: fadeInRight 0.8s ease-out forwards; }
+        .animate-pulse-slow { animation: pulseSlow 4s infinite ease-in-out; }
+
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+<body class="font-inter antialiased bg-gray-50 text-gray-900">
+    <div id="root"></div>
+
+    <!-- React and ReactDOM CDNs -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <!-- Babel for JSX transformation -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <!-- Lucide React Icons CDN - Note: This requires a specific setup for direct browser use without a build step.
+         For simplicity in a single HTML file, we'll include the raw JS for the icons and use them directly.
+         In a real React project, you'd install 'lucide-react' via npm/yarn.
+         For this context, we'll simulate by defining the components here.
+    -->
+    <script type="text/babel">
+        // Manually defining Lucide icons as simple SVG components for direct browser use
+        // In a real React project, you would import them from 'lucide-react'
+        const Code = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>);
+        const Cloud = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path></svg>);
+        const Workflow = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="8" height="8" x="3" y="3" rx="2"></rect><path d="M7 11v4a2 2 0 0 0 2 2h4"></path><rect width="8" height="8" x="13" y="13" rx="2"></rect></svg>);
+        const Braces = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 3H7a2 2 0 0 0-2 2v3"></path><path d="M16 21h1a2 2 0 0 0 2-2v-3"></path><path d="M19 8V7a2 2 0 0 0-2-2h-1"></path><path d="M5 16v1a2 2 0 0 0 2 2h1"></path></svg>);
+        const Activity = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>);
+        const GitBranch = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="6" x2="6" y1="3" y2="15"></line><path d="M18 6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path><path d="M6 18a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path><path d="M18 18a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path><path d="M8.5 12h7a3 3 0 0 0 3-3V6"></path><polyline points="6 9 6 6 9 6"></polyline></svg>);
+        const Layout = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect><line x1="3" x2="21" y1="9" y2="9"></line><line x1="9" x2="9" y1="21" y2="9"></line></svg>);
+        const Api = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 10v6"></path><path d="M12 12V4"></path><path d="M8 8H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4"></path><path d="M16 8h4a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2h-4"></path><path d="M12 16a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v2z"></path><path d="M12 12a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v2z"></path></svg>);
+        const Database = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M3 12A9 3 0 0 0 21 12"></path><path d="M3 19A9 3 0 0 0 21 19"></path><path d="M3 5v14"></path><path d="M21 5v14"></path></svg>);
+        const Tool = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.77 3.77z"></path></svg>);
+        const Kanban = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M6 2v14"></path><path d="M12 6v14"></path><path d="M18 2v14"></path><path d="M4 18h16"></path></svg>);
+        const Award = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="8" r="6"></circle><path d="M15.477 12.89L17.76 20.335 6 18l2.239-7.11L12 2"></path></svg>);
+        const Phone = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2 3.18 2 2 0 0 1 4.18 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>);
+        const Mail = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"></rect><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path></svg>);
+        const Linkedin = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect width="4" height="12" x="2" y="9"></rect><circle cx="4" cy="4" r="2"></circle></svg>);
+        const Github = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.44-.78-3.46 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.5 1.02-.92 2.22-.78 3.46 0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-5-2V7.5S2.7 7.5 4 6c-.5-1.5 0-2 0-2C5 2 6 2 6 2s1.5-2 4-2 4 2 4 2c0 0 .5 0 0 0z"></path></svg>);
+        const Home = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>);
+        const User = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>);
+        const Lightbulb = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 6c0 1.3.5 2.6 1.5 3.5.8.8 1.3 1.5 1.5 2.5"></path><path d="M9 18h6"></path><path d="M10 22h4"></path><path d="M10 19v-1c0-1 0-2 1-3s2-2.5 3-3.5"></path><path d="M12 2C7.5 2 4 5.5 4 10c0 2.8 1.5 5 4 6.5"></path></svg>);
+        const Briefcase = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>);
+        const FolderDot = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10 20H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h3.9a2 2 0 0 1 1.69.9l.81 1.2a2 2 0 0 0 1.67.9H20a2 2 0 0 1 2 2v9"></path><circle cx="12" cy="13" r="1"></circle></svg>);
+        const GraduationCap = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.839L12.001 4 2.6 9.083a1 1 0 0 0-.019 1.839l9.401 5.083 9.401-5.083Z"></path><path d="M22 13.29V16a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-2.71"></path><path d="M12 18v4"></path></svg>);
+        const Contact = (props) => (<svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M17 18a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2"></path><rect width="18" height="18" x="3" y="4" rx="2"></rect><circle cx="12" cy="10" r="3"></circle><line x1="12" x2="12" y1="2" y2="4"></line><line x1="12" x2="12" y1="20" y2="22"></line><line x1="2" x2="4" y1="12" y2="12"></line><line x1="20" x2="22" y1="12" y2="12"></line></svg>);
+
+
+        // Main App Component
+        const App = () => {
+          const [activeSection, setActiveSection] = React.useState('home');
+          const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false); // State for mobile menu
+
+          // Function to handle smooth scrolling to sections
+          const scrollToSection = (id) => {
+            const element = document.getElementById(id);
+            if (element) {
+              element.scrollIntoView({ behavior: 'smooth' });
+              setActiveSection(id);
+              setIsMobileMenuOpen(false); // Close mobile menu after selection
+            }
+          };
+
+          // Data for the portfolio, extracted from the resume
+          const portfolioData = {
+            name: "ANJAN PADMANABHAIAH",
+            title: "DevOps Engineer",
+            contact: {
+              phone: "+918553939520",
+              email: "anjangowdalrc@gmail.com",
+              linkedin: "www.linkedin.com/in/anjan-padmanabhaiah",
+              github: "https://github.com/anjanpadmanabhaiah",
+            },
+            summary: "Motivated and detail-oriented DevOps Engineer with hands-on experience in cloud infrastructure, automation, and CI/CD pipeline implementation. Proficient in deploying scalable applications on AWS and Azure, using tools like Jenkins, Docker, Git, and Terraform. Strong foundation in monitoring, scripting, and collaboration within Agile teams. Eager to contribute to modern DevOps practices and support high-availability systems through automation and continuous delivery.",
+            skills: {
+              languages: ["Java", "Python"],
+              devOpsCloudPlatforms: ["AWS: EC2, EBS, CloudWatch, S3, RDS, Lambda", "Azure: App Services, Functions, Cosmos DB"],
+              ciCdTools: ["Jenkins", "Maven", "Azure DevOps"],
+              iac: ["Terraform (basic)"],
+              monitoringLogging: ["AWS CloudWatch", "basic use of Log Streams"],
+              versionControl: ["Git", "GitHub"],
+              frontendFrameworks: ["React.js", "HTML5", "CSS3", "Tailwind CSS"],
+              backendAPIs: ["Spring boot", "RESTful APIs"],
+              databases: ["SQL Server", "MySQL", "PostgreSQL"],
+              tools: ["Figma", "Adobe XD", "Jira", "Confluence"],
+              methodologies: ["Agile", "Scrum"],
+            },
+            experience: [
+              {
+                title: "Software Developer Intern",
+                company: "Zoom Into Web",
+                location: "Ontario, Canada",
+                dates: "10/2024-05/25",
+                description: [
+                  "Delivered Tier 1 application support and debugging for a customer-facing resource management platform, resolving over 90% of Level 1 issues.",
+                  "Contributed to backend enhancements using Java, web services and improving integration efficiency.",
+                  "Automated maintenance and deployment processes with CI/CD workflows, reducing manual intervention by 50% and enhancing release reliability.",
+                  "Collaborated with cross-functional teams to schedule and deploy application updates with zero downtime.",
+                ],
+              },
+              {
+                title: "Web Development Volunteer",
+                company: "Interact Health pro",
+                location: "",
+                dates: "04/2024-09/2024",
+                description: [
+                  "Worked on CI/CD pipelines in Jenkins for health tracking applications hosted on Azure.",
+                  "Integrated React.js frontend with backend services and automated deployment triggers.",
+                  "Debugged production issues in real-time and contributed to frontend and backend enhancements for better user experience.",
+                  "Collaborated with cross-functional teams during Agile sprints to ensure timely feature delivery.",
+                ],
+              },
+              {
+                title: "Associate Software Developer",
+                company: "CGI Inc",
+                location: "Bengaluru, India",
+                dates: "01/2022-07/2022",
+                description: [
+                  "Built and supported full-stack cloud-based applications using Java, React.js, HTML/CSS, and JavaScript.",
+                  "Designed and optimized RESTful APIs, improving frontend-backend communication and reducing data latency by 25%.",
+                  "Utilized Jenkins and shell scripting to automate deployments, reducing manual effort and enhancing deployment speed by 30%.",
+                  "Collaborated in Agile teams and contributed to end-to-end SDLC phases including design, development, testing, and deployment.",
+                ],
+              },
+              {
+                title: "Web Development Intern",
+                company: "Printalytix Pvt ltd",
+                location: "Bengaluru, India",
+                dates: "09/2019-04/2020",
+                description: [
+                  "Supported development of web-based platforms using HTML5, CSS3, JavaScript/jQuery, and SOAP-based web services.",
+                  "Designed high-fidelity UI mockups using Adobe XD and Figma, facilitating smooth design-to-development transitions.",
+                  "Improved team efficiency by 15% by aligning frontend UI implementations with business and product requirements.",
+                  "Contributed to internal documentation and user training materials for knowledge transfer and stakeholder engagement.",
+                ],
+              },
+            ],
+            projects: [
+              {
+                name: "Multi-Cloud Deployment for Savari AI",
+                description: "Architected and deployed Savari AI, a travel itinerary planning application, across Azure App Services and AWS EC2 instances, utilizing a multi-cloud architecture to achieve redundancy, high availability, and disaster recovery. Automated infrastructure provisioning and deployment pipelines using Terraform and Docker and optimized cloud resource utilization with autoscaling policies.",
+              },
+              {
+                name: "Savari AI - AI-Powered Travel Itinerary Planner",
+                description: "Integrated Gemini AI for real-time user assistance through a custom-built React.js front-end and Bootstrap resulting in a 25% increase in successful query resolutions and elevating the overall travel booking experience for users. Integrated Google Maps, Google Authentication, and CI/CD on Azure Cloud, enabling users to securely log in using two-factor authentication, review up to 4 previous travel requests stored in a scalable SQL database.",
+              },
+              {
+                name: "E-Commerce Website with Payment Integration",
+                description: "Built a full-stack e-commerce platform using React.js and PostgreSQL, enabling seamless product browsing, order placement, and payment processing. Integrated Stripe API for secure payment transactions, enhancing the user experience and transaction success rate.",
+              },
+              {
+                name: "Personal Portfolio Website",
+                description: "Developed a personal portfolio website using React.js and Tailwind CSS, showcasing projects, skills, and experience in a visually appealing layout. Deployed the website using AWS S3 and CloudFront, ensuring high availability and fast performance.",
+              },
+            ],
+            education: [
+              {
+                degree: "Post Graduate Certificate in Information Technology",
+                university: "Algoma University",
+                location: "Ontario, Canada",
+                dates: "08/2024",
+              },
+              {
+                degree: "Bachelors of Computer Science and Engineering",
+                university: "Bangalore Institute of Technology",
+                location: "Bengaluru, India",
+                dates: "08/2020",
+              },
+            ],
+            certifications: [
+              "Star Agile Devops Training - 2025",
+              "AWS Certified Developer Associate (2025)",
+              "Oracle Cloud Infrastructure (OCI) Generative AI Professional Certificate (2024)",
+            ],
+          };
+
+          // Mapping skill categories to Lucide icons
+          const skillIcons = {
+            languages: Code,
+            devOpsCloudPlatforms: Cloud,
+            ciCdTools: Workflow,
+            iac: Braces,
+            monitoringLogging: Activity,
+            versionControl: GitBranch,
+            frontendFrameworks: Layout,
+            backendAPIs: Api,
+            databases: Database,
+            tools: Tool,
+            methodologies: Kanban,
+          };
+
+          // Tailwind CSS classes for consistent styling
+          const sectionTitleClasses = "text-3xl md:text-4xl font-bold text-gray-800 mb-6 border-b-4 border-teal-500 pb-2";
+          const cardClasses = "bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300";
+          const listItemClasses = "flex items-start mb-2";
+          const iconClasses = "text-teal-500 mr-3 mt-1 text-xl"; // For list item icons
+
+          return (
+            <div className="font-inter antialiased bg-gray-50 text-gray-900">
+              {/* Navigation Bar */}
+              <nav className="fixed top-0 left-0 right-0 bg-white shadow-md z-50 p-4">
+                <div className="container mx-auto flex justify-between items-center">
+                  <h1 className="text-2xl font-bold text-teal-600">{portfolioData.name.split(' ')[0]}</h1>
+                  <div className="hidden md:flex space-x-6">
+                    <NavItem id="home" label="Home" activeSection={activeSection} onClick={scrollToSection} icon={Home} />
+                    <NavItem id="about" label="About" activeSection={activeSection} onClick={scrollToSection} icon={User} />
+                    <NavItem id="skills" label="Skills" activeSection={activeSection} onClick={scrollToSection} icon={Lightbulb} />
+                    <NavItem id="experience" label="Experience" activeSection={activeSection} onClick={scrollToSection} icon={Briefcase} />
+                    <NavItem id="projects" label="Projects" activeSection={activeSection} onClick={scrollToSection} icon={FolderDot} />
+                    <NavItem id="education" label="Education" activeSection={activeSection} onClick={scrollToSection} icon={GraduationCap} />
+                    <NavItem id="contact" label="Contact" activeSection={activeSection} onClick={scrollToSection} icon={Contact} />
+                  </div>
+                  {/* Mobile Menu Button */}
+                  <div className="md:hidden">
+                    <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-gray-600 focus:outline-none">
+                      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+                {/* Mobile Menu */}
+                {isMobileMenuOpen && (
+                  <div className="md:hidden mt-4 flex flex-col items-center space-y-4">
+                    <NavItem id="home" label="Home" activeSection={activeSection} onClick={scrollToSection} icon={Home} />
+                    <NavItem id="about" label="About" activeSection={activeSection} onClick={scrollToSection} icon={User} />
+                    <NavItem id="skills" label="Skills" activeSection={activeSection} onClick={scrollToSection} icon={Lightbulb} />
+                    <NavItem id="experience" label="Experience" activeSection={activeSection} onClick={scrollToSection} icon={Briefcase} />
+                    <NavItem id="projects" label="Projects" activeSection={activeSection} onClick={scrollToSection} icon={FolderDot} />
+                    <NavItem id="education" label="Education" activeSection={activeSection} onClick={scrollToSection} icon={GraduationCap} />
+                    <NavItem id="contact" label="Contact" activeSection={activeSection} onClick={scrollToSection} icon={Contact} />
+                  </div>
+                )}
+              </nav>
+
+              {/* Hero Section */}
+              <section id="home" className="relative bg-gradient-to-r from-teal-500 to-blue-600 text-white flex items-center justify-center min-h-screen pt-24 pb-12 overflow-hidden">
+                <div className="absolute inset-0 z-0">
+                  {/* Abstract background shapes */}
+                  <div className="absolute top-0 left-0 w-48 h-48 bg-white opacity-10 rounded-full mix-blend-overlay animate-pulse-slow"></div>
+                  <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-white opacity-10 rounded-full mix-blend-overlay animate-pulse-slow delay-200"></div>
+                  <div className="absolute top-1/3 right-0 w-32 h-32 bg-white opacity-10 rounded-full mix-blend-overlay animate-pulse-slow delay-400"></div>
+                </div>
+                <div className="container mx-auto flex flex-col md:flex-row items-center justify-center px-4 z-10">
+                  <div className="md:w-1/2 text-center md:text-left mb-8 md:mb-0">
+                    <h2 className="text-4xl md:text-6xl font-extrabold leading-tight mb-4 animate-fade-in-down">
+                      Hello, I'm <span className="text-yellow-300">{portfolioData.name.split(' ')[0]}</span>
+                    </h2>
+                    <p className="text-xl md:text-2xl mb-6 animate-fade-in-up">{portfolioData.title}</p>
+                    <div className="flex justify-center md:justify-start space-x-4 animate-fade-in-up delay-300">
+                      <a href="#projects" onClick={() => scrollToSection('projects')} className="bg-white text-teal-600 px-6 py-3 rounded-full font-semibold shadow-lg hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+                        View Projects
+                      </a>
+                      <a href="#contact" onClick={() => scrollToSection('contact')} className="border-2 border-white text-white px-6 py-3 rounded-full font-semibold hover:bg-white hover:text-teal-600 transition-all duration-300 transform hover:scale-105">
+                        Contact Me
+                      </a>
+                    </div>
+                  </div>
+                  <div className="md:w-1/2 flex justify-center md:justify-end animate-fade-in-right">
+                    <img
+                      src="http://googleusercontent.com/file_content/0"
+                      alt="Anjan Padmanabhaiah"
+                      className="w-64 h-64 md:w-80 md:h-80 rounded-full object-cover shadow-2xl border-4 border-white transform hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                </div>
+              </section>
+
+              {/* About Section */}
+              <section id="about" className="py-16 bg-gray-100 px-4">
+                <div className="container mx-auto">
+                  <h3 className={sectionTitleClasses}>About Me</h3>
+                  <div className={cardClasses}>
+                    <p className="text-lg leading-relaxed text-gray-700">{portfolioData.summary}</p>
+                  </div>
+                </div>
+              </section>
+
+              {/* Skills Section */}
+              <section id="skills" className="py-16 px-4">
+                <div className="container mx-auto">
+                  <h3 className={sectionTitleClasses}>Technical Skills</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {Object.entries(portfolioData.skills).map(([category, items]) => {
+                      const IconComponent = skillIcons[category]; // Get the icon component based on category
+                      return (
+                        <div key={category} className={cardClasses}>
+                          <h4 className="text-xl font-semibold text-teal-600 mb-4 capitalize">{category.replace(/([A-Z])/g, ' $1').trim()}</h4>
+                          <ul className="list-none p-0">
+                            {items.map((item, index) => (
+                              <li key={index} className={listItemClasses}>
+                                {IconComponent && <IconComponent className={iconClasses} />} {/* Render the dynamic icon */}
+                                <span>{item}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </section>
+
+              {/* Experience Section */}
+              <section id="experience" className="py-16 bg-gray-100 px-4">
+                <div className="container mx-auto">
+                  <h3 className={sectionTitleClasses}>Experience</h3>
+                  <div className="space-y-8">
+                    {portfolioData.experience.map((job, index) => (
+                      <div key={index} className={cardClasses}>
+                        <h4 className="text-2xl font-semibold text-gray-800">{job.title}</h4>
+                        <p className="text-teal-600 text-lg mb-2">{job.company} {job.location && `| ${job.location}`}</p>
+                        <p className="text-gray-500 text-sm mb-4">{job.dates}</p>
+                        <ul className="list-disc pl-5 space-y-2 text-gray-700">
+                          {job.description.map((point, i) => (
+                            <li key={i}>{point}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              {/* Projects Section */}
+              <section id="projects" className="py-16 px-4">
+                <div className="container mx-auto">
+                  <h3 className={sectionTitleClasses}>Projects</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {portfolioData.projects.map((project, index) => (
+                      <div key={index} className={cardClasses}>
+                        <h4 className="text-2xl font-semibold text-teal-600 mb-3">{project.name}</h4>
+                        <p className="text-gray-700 leading-relaxed">{project.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              {/* Education & Certifications Section */}
+              <section id="education" className="py-16 bg-gray-100 px-4">
+                <div className="container mx-auto">
+                  <h3 className={sectionTitleClasses}>Education & Certifications</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div className={cardClasses}>
+                      <h4 className="text-2xl font-semibold text-gray-800 mb-4">Education</h4>
+                      <div className="space-y-4">
+                        {portfolioData.education.map((edu, index) => (
+                          <div key={index}>
+                            <p className="text-lg font-medium text-teal-600">{edu.degree}</p>
+                            <p className="text-gray-700">{edu.university} | {edu.location}</p>
+                            <p className="text-gray-500 text-sm">{edu.dates}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                    <div className={cardClasses}>
+                      <h4 className="text-2xl font-semibold text-gray-800 mb-4">Certifications</h4>
+                      <ul className="list-none p-0 space-y-2">
+                        {portfolioData.certifications.map((cert, index) => (
+                          <li key={index} className={listItemClasses}>
+                            <Award className={iconClasses} /> {/* Using the Award icon for certifications */}
+                            <span>{cert}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Contact Section */}
+              <section id="contact" className="py-16 px-4">
+                <div className="container mx-auto text-center">
+                  <h3 className={sectionTitleClasses}>Get In Touch</h3>
+                  <div className={cardClasses + " max-w-2xl mx-auto"}>
+                    <p className="text-lg text-gray-700 mb-6">I'm always open to new opportunities and collaborations. Feel free to reach out!</p>
+                    <div className="flex flex-col items-center space-y-4">
+                      <a href={`tel:${portfolioData.contact.phone}`} className="flex items-center text-teal-600 hover:text-teal-800 transition-colors duration-300">
+                        <Phone className="w-6 h-6 mr-2" />
+                        <span>{portfolioData.contact.phone}</span>
+                      </a>
+                      <a href={`mailto:${portfolioData.contact.email}`} className="flex items-center text-teal-600 hover:text-teal-800 transition-colors duration-300">
+                        <Mail className="w-6 h-6 mr-2" />
+                        <span>{portfolioData.contact.email}</span>
+                      </a>
+                      <a href={`https://${portfolioData.contact.linkedin}`} target="_blank" rel="noopener noreferrer" className="flex items-center text-teal-600 hover:text-teal-800 transition-colors duration-300">
+                        <Linkedin className="w-6 h-6 mr-2" />
+                        <span>LinkedIn</span>
+                      </a>
+                      <a href={portfolioData.contact.github} target="_blank" rel="noopener noreferrer" className="flex items-center text-teal-600 hover:text-teal-800 transition-colors duration-300">
+                        <Github className="w-6 h-6 mr-2" />
+                        <span>GitHub</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </section>
+
+              {/* Footer */}
+              <footer className="bg-gray-800 text-white py-6 text-center">
+                <div className="container mx-auto">
+                  <p>&copy; {new Date().getFullYear()} {portfolioData.name}. All rights reserved.</p>
+                  <p className="text-sm mt-2">Built with React.js and Tailwind CSS</p>
+                </div>
+              </footer>
+            </div>
+          );
+        };
+
+        // NavItem Component for reusability
+        const NavItem = ({ id, label, activeSection, onClick, icon: Icon }) => (
+          <a
+            href={`#${id}`}
+            onClick={(e) => {
+              e.preventDefault();
+              onClick(id);
+            }}
+            className={`flex items-center text-lg font-medium hover:text-teal-600 transition-colors duration-300 ${
+              activeSection === id ? 'text-teal-600 border-b-2 border-teal-600' : 'text-gray-600'
+            }`}
+          >
+            {Icon && <Icon className="w-5 h-5 mr-2" />}
+            {label}
+          </a>
+        );
+
+        // Render the App component into the root div
+        ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+    </script>
+</body>
+</html>
